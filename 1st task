@@ -1,0 +1,127 @@
+import re
+from collections import Counter
+
+def count_words(paragraph):
+    # Split the paragraph into words
+    words = paragraph.split()
+    # Count the number of words
+    num_words = len(words)
+    return num_words
+
+def count_unique_words(paragraph):
+    # Split the paragraph into words
+    words = paragraph.split()
+    # Create a set to store unique words
+    unique_words = set(words)
+    # Count the number of unique words
+    num_unique_words = len(unique_words)
+    return num_unique_words
+
+def most_frequent_word(paragraph):
+    # Remove punctuation and split the paragraph into words
+    words = re.findall(r'\b\w+\b', paragraph.lower())
+    # Count the occurrences of each word
+    word_counts = Counter(words)
+    # Find the most common word
+    most_common_word = word_counts.most_common(1)
+    return most_common_word[0] if most_common_word else None
+
+def average_word_length(paragraph):
+    # Remove punctuation and split the paragraph into words
+    words = re.findall(r'\b\w+\b', paragraph.lower())
+    # Calculate total characters and total words
+    total_characters = sum(len(word) for word in words)
+    total_words = len(words)
+    # Calculate average word length
+    if total_words != 0:
+        avg_word_length = total_characters / total_words
+    else:
+        avg_word_length = 0
+    return avg_word_length
+
+def count_sentences(paragraph):
+    # Count the number of sentences based on punctuation
+    sentences = re.split(r'[.!?]', paragraph)
+    # Remove empty strings (resulting from multiple punctuation marks)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    # Count the number of remaining sentences
+    num_sentences = len(sentences)
+    return num_sentences
+
+def longest_sentence(paragraph):
+    # Split the paragraph into sentences based on punctuation
+    sentences = re.split(r'[.!?]', paragraph)
+    # Remove empty strings (resulting from multiple punctuation marks)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    # Find the longest sentence
+    longest = max(sentences, key=lambda sentence: len(sentence.split()))
+    return longest
+
+def shortest_sentence(paragraph):
+    # Split the paragraph into sentences based on punctuation
+    sentences = re.split(r'[.!?]', paragraph)
+    # Remove empty strings (resulting from multiple punctuation marks)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    # Find the shortest sentence
+    shortest = min(sentences, key=lambda sentence: len(sentence.split()))
+    return shortest
+
+def uppercase_percentage(paragraph):
+    # Count total letters and uppercase letters
+    total_letters = sum(1 for char in paragraph if char.isalpha())
+    uppercase_letters = sum(1 for char in paragraph if char.isalpha() and char.isupper())
+    # Calculate percentage of uppercase letters
+    if total_letters != 0:
+        percentage = (uppercase_letters / total_letters) * 100
+    else:
+        percentage = 0
+    return percentage
+
+def most_frequent_bigrams(paragraph):
+    # Remove punctuation and split the paragraph into words
+    words = re.findall(r'\b\w+\b', paragraph.lower())
+    # Generate bigrams
+    bigrams = [(words[i], words[i+1]) for i in range(len(words)-1)]
+    # Count occurrences of bigrams
+    bigram_counts = Counter(bigrams)
+    # Find the most common bigrams
+    most_common_bigrams = bigram_counts.most_common(5)
+    return most_common_bigrams
+
+def main():
+    # Get input paragraph from the user
+    paragraph = input("Enter a paragraph: ")
+    # Call count_words function to count the number of words
+    num_words = count_words(paragraph)
+    # Call count_unique_words function to count the number of unique words
+    num_unique_words = count_unique_words(paragraph)
+    # Call most_frequent_word function to find the most frequent word
+    most_frequent = most_frequent_word(paragraph)
+    # Call average_word_length function to calculate the average word length
+    avg_length = average_word_length(paragraph)
+    # Call count_sentences function to count the number of sentences
+    num_sentences = count_sentences(paragraph)
+    # Call longest_sentence function to find the longest sentence
+    longest = longest_sentence(paragraph)
+    # Call shortest_sentence function to find the shortest sentence
+    shortest = shortest_sentence(paragraph)
+    # Call uppercase_percentage function to calculate the percentage of uppercase letters
+    upper_percent = uppercase_percentage(paragraph)
+    # Call most_frequent_bigrams function to find the most frequent bigrams
+    most_common_bigrams = most_frequent_bigrams(paragraph)
+    # Display the results
+    print("Number of words:", num_words)
+    print("Number of unique words:", num_unique_words)
+    if most_frequent:
+        print("Most frequent word (excluding punctuation):", most_frequent[0])
+    else:
+        print("No words found in the paragraph.")
+    print("Average word length:", avg_length)
+    print("Number of sentences:", num_sentences)
+    print("Longest sentence:", longest)
+    print("Shortest sentence:", shortest)
+    print("Percentage of uppercase letters:", upper_percent)
+    print("Most frequent bigrams:", most_common_bigrams)
+
+if __name__ == "__main__":
+    main()
