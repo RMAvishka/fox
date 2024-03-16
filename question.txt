@@ -1,0 +1,10 @@
+number of words
+unique words
+most frequent words
+avg word length
+number of sentences
+longest sentences
+shortest sentences
+percentege of uppercase letter
+list 5 most frequent bigrams
+word cloud generation
